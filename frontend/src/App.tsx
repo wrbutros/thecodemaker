@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import "./App.css";
 import logo from "./logo.svg";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { isSessionValid, setSession, clearSession, getAuthHeaders } from "./session";
 
 export interface AppState {
@@ -28,6 +29,18 @@ class App extends React.Component<{}, AppState> {
   }
 
   public render() {
+    return (
+      <div className="App">
+        <Router>
+          <div style={{ width: "100%" }}>
+            <Route exact path="/" component={this.renderApp} />
+          </div>
+        </Router>
+      </div>
+    );
+  }
+
+  public renderApp = () => {
     return (
       <div className="App">
         <header className="App-header">
@@ -76,7 +89,7 @@ class App extends React.Component<{}, AppState> {
         )}
       </div>
     );
-  }
+  };
 
   private handleLogin = async (): Promise<void> => {
     const { email, password } = this.state;
